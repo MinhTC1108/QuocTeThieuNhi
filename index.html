@@ -2,29 +2,29 @@
 <html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>HBD</title>
-    <link type="text/css" rel="stylesheet" href="default.css" />
-    <script type="text/javascript" src="jquery.min.js"></script>
-    <script type="text/javascript" src="jscex.min.js"></script>
-    <script type="text/javascript" src="jscex-parser.js"></script>
-    <script type="text/javascript" src="jscex-jit.js"></script>
+    <title>QuocTeThieuNhi</title>
+    <link type="text/css" rel="stylesheet" href="./default.css" />
+    <script type="text/javascript" src="./jquery.min.js"></script>
+    <script type="text/javascript" src="./jscex.min.js"></script>
+    <script type="text/javascript" src="./jscex-parser.js"></script>
+    <script type="text/javascript" src="./jscex-jit.js"></script>
     <script
       type="text/javascript"
-      src="jscex-builderbase.min.js"
+      src="./jscex-builderbase.min.js"
     ></script>
-    <script type="text/javascript" src="jscex-async.min.js"></script>
+    <script type="text/javascript" src="./jscex-async.min.js"></script>
     <script
       type="text/javascript"
-      src="jscex-async-powerpack.min.js"
+      src="./jscex-async-powerpack.min.js"
     ></script>
     <script
       type="text/javascript"
-      src="functions.js"
+      src="./functions.js"
       charset="utf-8"
     ></script>
     <script
       type="text/javascript"
-      src="love.js"
+      src="./love.js"
       charset="utf-8"
     ></script>
     <script>
@@ -44,22 +44,20 @@
         (<a href="http://firefox.com.cn/download/">Firefox</a>)
       </div>
       <audio autoplay="autoplay" height="100" width="100" id="myAudio">
-        <source src="aud.mp3" type="audio/mp3" />
-        <embed height="100" width="100" src="aud.mp3" />
+        <source src="Aud.mp3" type="audio/mp3" />
+        <embed height="100" width="100" src="Aud.mp3" />
       </audio>
       <div id="wrap">
         <div id="text">
           <div id="code">
-            <span class="say">Hii, happy birthday Phước béo🎂☺️💫</span><br />
-            <span class="say">Chúc fen có một ngày sinh nhật tuyệt vời bên gia đình và bạn bè 🎉</span><br />
-            <span class="say">Hy vọng là 🌟</span
-            ><br />
-            <span class="say"
-              >Tuổi mới kỹ năng phép cũng tăng 💕</span
-            ><br />
-            <span class="say">Để còn gánh team dưới nữa nhenn ❤️</span><br />
-            <span class="say">Okee, have a nice dayyy🥰</span><br />
-            <span class="say">--C.Minhh--</span
+            <span class="say">Hè hè, yeuu oiiiiii</span><br />
+            <span class="say">Hôm nay là ngày đầu tiên của tháng 6, cũng là quốc tế thiếu nhiii 🎉</span><br />
+            <span class="say">Anh chúc yeuu 🌟</span><br />
+            <span class="say">Ăn mau chóng lớn, có một ngày thật vui vẻ, tích cực 💕</span><br />
+            <span class="say">Và  ❤️</span><br />
+            <span class="say">Đón nhận thêm nhiều may mắn và ở bên anh thật lâu nhaaaa🥰</span><br />
+            <span class="say">Toii yêu em lắm luôn đóoooooooo</span><br />
+            <span class="say">--C.Minhh🥰🥰🥰--</span
             ><br />
           </div>
         </div>
@@ -170,6 +168,10 @@
         var foot = tree.footer;
         var hold = 1;
 
+        // fall speed config: lower step or higher delay makes the seed fall slower
+        var fallStep = 2;       // pixels per frame when the heart falls
+        var fallDelay = 10;     // milliseconds per frame during fall
+
         // Make it clear the canvas is clickable (so user knows to click the heart)
         canvas.css("cursor", "pointer");
 
@@ -195,43 +197,43 @@
           });
 
         var seedAnimate = eval(
-          jscex.compile("async", function () {
+          Jscex.compile("async", function () {
             seed.draw();
             while (hold) {
-              $await(jscex.Async.sleep(10));
+              $await(Jscex.Async.sleep(10));
             }
             while (seed.canScale()) {
               seed.scale(0.95);
-              $await(jscex.Async.sleep(10));
+              $await(Jscex.Async.sleep(10));
             }
             while (seed.canMove()) {
-              seed.move(0, 2);
+              seed.move(0, fallStep);
               foot.draw();
-              $await(jscex.Async.sleep(10));
+              $await(Jscex.Async.sleep(fallDelay));
             }
           })
         );
 
         var growAnimate = eval(
-          jscex.compile("async", function () {
+          Jscex.compile("async", function () {
             do {
               tree.grow();
-              $await(jscex.Async.sleep(10));
+              $await(Jscex.Async.sleep(10));
             } while (tree.canGrow());
           })
         );
 
         var flowAnimate = eval(
-          jscex.compile("async", function () {
+          Jscex.compile("async", function () {
             do {
               tree.flower(2);
-              $await(jscex.Async.sleep(10));
+              $await(Jscex.Async.sleep(10));
             } while (tree.canFlower());
           })
         );
 
         var moveAnimate = eval(
-          jscex.compile("async", function () {
+          Jscex.compile("async", function () {
             tree.snapshot("p1", 240, 0, 610, 680);
             while (tree.move("p1", 500, 0)) {
               foot.draw();
@@ -244,19 +246,19 @@
               .parent()
               .css("background", "url(" + tree.toDataURL("image/png") + ")");
             canvas.css("background", "#ffe");
-            $await(jscex.Async.sleep(300));
+            $await(Jscex.Async.sleep(300));
             canvas.css("background", "none");
           })
         );
 
         var textAnimate = eval(
-          jscex.compile("async", function () {
+          Jscex.compile("async", function () {
             $("#code").show().typewriter();
           })
         );
 
         var runAsync = eval(
-          jscex.compile("async", function () {
+          Jscex.compile("async", function () {
             $await(seedAnimate());
             $await(growAnimate());
             $await(flowAnimate());
